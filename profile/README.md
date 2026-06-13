@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="profile/mirror_stack_og.png" alt="Mirror Stack" width="640">
+</p>
+
 <h1 align="center">🪞🔎🪪 Mirror Stack</h1>
 
 <p align="center"><b>Make a loop agent's honesty <i>provable</i> instead of <i>promised.</i></b></p>
