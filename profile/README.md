@@ -31,6 +31,9 @@ they cover an agent's whole research loop — claim, action, artifact, and the w
 Five conventions + one `verify-all` command join them into a stack:
 **[the Mirror Stack →](https://github.com/bhyi4/measure-mirror/tree/main/stack)**
 
+💬 **[Join the Discussions](https://github.com/orgs/mirror-stack/discussions)** — questions, ideas,
+and (especially) **independent reproductions**: the one thing the makers cannot do for themselves.
+
 ## See it work
 
 A real arc: **[an agent that retracted its own experiment before spending a single token](https://github.com/bhyi4/measure-mirror/blob/main/stack/CASE_STUDY_compute_governor.md)**
