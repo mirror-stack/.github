@@ -36,7 +36,13 @@ and (especially) **independent reproductions**: the one thing the makers cannot 
 
 ## See it work
 
-A real arc: **[an agent that retracted its own experiment before spending a single token](https://github.com/bhyi4/measure-mirror/blob/main/stack/CASE_STUDY_compute_governor.md)**
+**[Browse real sealed records → the Reading Room](https://bhyi4.github.io/mirror-witness/ledger/)** — a live,
+human-readable viewer over actual ledgers. Each experiment shows the kill-condition sealed *before* the run,
+the verdict (pass / kill / retracted / inconclusive), and every number auto-recomputed from the ledger.
+Tamper with a sealed value in your browser and watch the hash break. It shows the failures and retractions,
+not just the wins — that's what makes it worth reading.
+
+Or read a single arc end-to-end: **[an agent that retracted its own experiment before spending a single token](https://github.com/bhyi4/measure-mirror/blob/main/stack/CASE_STUDY_compute_governor.md)**
 — preregistration → a power check that vetoed its own design → adversarial self-amendments →
 prior-art retraction at zero measurement cost. The chain-sealed ledger is bundled; verify it
 yourself. Nothing in the story asks you to trust the agent. That's the point.
