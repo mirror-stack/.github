@@ -38,6 +38,20 @@ runs an idea from **deliberation → pre-registration → dev loop**, with integ
 close, a KILL-defense checklist, a verify-gated dev loop). The mirrors answer *is this honest?*; yeoul is
 *how you run a disciplined loop end to end* — and seals into them as it goes.
 
+## Get started
+
+The four mirrors ship as **one** MCP server:
+
+```bash
+pip install git+https://github.com/mirror-stack/mirror-stack-mcp
+```
+```json
+{ "mcpServers": { "mirror-stack": { "command": "mirror-stack-mcp" } } }
+```
+
+Want the practice layer on top? [**yeoul**](https://github.com/mirror-stack/yeoul) adds a `yeoul` MCP
+server that seals into the mirrors as it runs — see its README for the combined one-command setup.
+
 💬 **[Join the Discussions](https://github.com/orgs/mirror-stack/discussions)** — questions, ideas,
 and (especially) **independent reproductions**: the one thing the makers cannot do for themselves.
 
