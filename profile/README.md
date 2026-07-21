@@ -31,6 +31,13 @@ they cover an agent's whole research loop — claim, action, artifact, and the w
 Five conventions + one `verify-all` command join them into a stack:
 **[the Mirror Stack →](https://github.com/mirror-stack/measure-mirror/tree/main/stack)**
 
+### The practice layer
+
+[**yeoul**](https://github.com/mirror-stack/yeoul) sits on top of the mirrors: a file-based harness that
+runs an idea from **deliberation → pre-registration → dev loop**, with integrity gates (prior-art, two-phase
+close, a KILL-defense checklist, a verify-gated dev loop). The mirrors answer *is this honest?*; yeoul is
+*how you run a disciplined loop end to end* — and seals into them as it goes.
+
 💬 **[Join the Discussions](https://github.com/orgs/mirror-stack/discussions)** — questions, ideas,
 and (especially) **independent reproductions**: the one thing the makers cannot do for themselves.
 
