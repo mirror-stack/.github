@@ -57,9 +57,10 @@ and (especially) **independent reproductions**: the one thing the makers cannot 
 
 ## See it work
 
-**[Browse real sealed records → the Reading Room](https://mirror-stack.github.io/mirror-witness/ledger/)** — a live,
-human-readable viewer over actual ledgers. Each experiment shows the kill-condition sealed *before* the run,
-the verdict (pass / kill / retracted / inconclusive), and every number auto-recomputed from the ledger.
+**[Browse real sealed records → the Reading Room](https://mirror-stack.github.io/mirror-witness/ledger/)** — a
+human-readable viewer over real ledgers, published as a snapshot (most recent arc: 2026-07-09). Each experiment
+shows the kill-condition sealed *before* the run, the verdict (pass / kill / retracted / inconclusive), and every
+number **recomputed in your browser from the ledger itself** rather than typed in.
 Tamper with a sealed value in your browser and watch the hash break. It shows the failures and retractions,
 not just the wins — that's what makes it worth reading.
 
