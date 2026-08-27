@@ -23,7 +23,7 @@ they cover an agent's whole research loop — claim, action, artifact, and the w
 
 | Tool | Audits | Question it answers |
 |---|---|---|
-| 🪞 [**measure-mirror**](https://github.com/mirror-stack/measure-mirror) | AI evaluation claims | Is the **claim** honest? — preregistration, kill conditions, 23 statistical/gaming probes |
+| 🪞 [**measure-mirror**](https://github.com/mirror-stack/measure-mirror) | AI evaluation claims | Is the **claim** honest? — preregistration, kill conditions, 28 statistical/gaming probes |
 | 🪪 [**action-mirror**](https://github.com/mirror-stack/action-mirror) | Agent behaviour | Who did what, **provably**? — chain-linked action history + mutual witness |
 | 🔎 [**provenance-mirror**](https://github.com/mirror-stack/provenance-mirror) | Content authenticity | Is the **origin** proven? — a verifier, not a deepfake detector |
 | 👁 [**mirror-witness**](https://github.com/mirror-stack/mirror-witness) | Cross-operator witness board | Who else **witnessed** it? — GitHub-as-witness, CI-verified, no server |
@@ -57,9 +57,10 @@ and (especially) **independent reproductions**: the one thing the makers cannot 
 
 ## See it work
 
-**[Browse real sealed records → the Reading Room](https://mirror-stack.github.io/mirror-witness/ledger/)** — a live,
-human-readable viewer over actual ledgers. Each experiment shows the kill-condition sealed *before* the run,
-the verdict (pass / kill / retracted / inconclusive), and every number auto-recomputed from the ledger.
+**[Browse real sealed records → the Reading Room](https://mirror-stack.github.io/mirror-witness/ledger/)** — a
+human-readable viewer over real ledgers, published as a snapshot (most recent arc: 2026-07-09). Each experiment
+shows the kill-condition sealed *before* the run, the verdict (pass / kill / retracted / inconclusive), and every
+number **recomputed in your browser from the ledger itself** rather than typed in.
 Tamper with a sealed value in your browser and watch the hash break. It shows the failures and retractions,
 not just the wins — that's what makes it worth reading.
 
