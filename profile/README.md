@@ -4,11 +4,11 @@
 
 <h1 align="center">🪞🔎🪪 Mirror Stack</h1>
 
-<p align="center"><b>Make a loop agent's honesty <i>provable</i> instead of <i>promised.</i></b></p>
+<p align="center"><b>Make a loop agent's claims and records <i>auditable.</i></b></p>
 
 <p align="center">
-Not a system that prevents dishonesty — a system in which only honesty leaves evidence
-that cannot be reconstructed after the fact.
+Record commitments before experiments, preserve corrections, and state exactly
+what was verified. A sealed record is not proof that its content is true.
 </p>
 
 ---
@@ -25,7 +25,7 @@ they cover an agent's whole research loop — claim, action, artifact, and the w
 |---|---|---|
 | 🪞 [**measure-mirror**](https://github.com/mirror-stack/measure-mirror) | AI evaluation claims | Is the **claim** honest? — preregistration, kill conditions, 28 statistical/gaming probes |
 | 🪪 [**action-mirror**](https://github.com/mirror-stack/action-mirror) | Agent behaviour | Who did what, **provably**? — chain-linked action history + mutual witness |
-| 🔎 [**provenance-mirror**](https://github.com/mirror-stack/provenance-mirror) | Content authenticity | Is the **origin** proven? — a verifier, not a deepfake detector |
+| 🔎 [**provenance-mirror**](https://github.com/mirror-stack/provenance-mirror) | Provenance signals | What origin hints are present? — byte markers are **not** authenticated manifests or verified signatures |
 | 👁 [**mirror-witness**](https://github.com/mirror-stack/mirror-witness) | Cross-operator witness board | Who else **witnessed** it? — GitHub-as-witness, CI-verified, no server |
 
 Five conventions + one `verify-all` command join them into a stack:
@@ -70,6 +70,12 @@ prior-art retraction at zero measurement cost. The chain-sealed ledger is bundle
 yourself. Nothing in the story asks you to trust the agent. That's the point.
 
 ## Honesty box
+
+Current verification depth is explicit: `LINKAGE_ONLY` checks pointers, not content
+hashes; `HASH_RECOMPUTED` checks hashes, not author identity; `LOCAL_SNAPSHOT` is not
+an external clock; `HEAD_WITNESS` is not independent reproduction. Provenance hints
+return yellow `PROVENANCE-UNVERIFIED`, not `AUTHENTIC-SIGNED`. Historical sealed
+records are left intact. See the [current gate contract and migration guide](https://github.com/mirror-stack/mirror-stack-mcp/blob/main/README.md#verification-depth-and-gate-migration-0214).
 
 This does **not** prevent dishonesty — an agent can simply not record. The guarantee is
 asymmetric: sealed preregistrations and time-pinned witnesses can't be fabricated retroactively,
