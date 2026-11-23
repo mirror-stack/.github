@@ -4,55 +4,70 @@
 
 <h1 align="center">🪞🔎🪪 Mirror Stack</h1>
 
-<p align="center"><b>Make a loop agent's claims and records <i>auditable.</i></b></p>
+<p align="center"><b>Preregistration and audit for AI research and evaluation claims.</b></p>
 
 <p align="center">
-Record commitments before experiments, preserve corrections, and state exactly
-what was verified. A sealed record is not proof that its content is true.
+Seal the hypothesis and the condition that would kill it <i>before</i> the run, then audit
+the result against what was sealed. A sealed record is not proof that its content is true.
 </p>
 
 ---
 
-AI research agents are starting to produce science, run unattended for days, and make
-consequential decisions. The integrity instruments humans use — self-attestation checklists,
-manual preregistration, post-hoc replication — were built for human speed and human incentives.
-Loop agents need integrity that is **machine-enforced and machine-verifiable**.
+When an AI agent (or a person) runs an evaluation and reports a result, the usual question is
+"was the success criterion chosen before or after seeing the numbers?" Today that is mostly
+answered by trust: a checklist, a preregistration form, a promise.
 
-Mirror Stack is four small, local-first, Apache-2.0 tools. Each answers one question; together
-they cover an agent's whole research loop — claim, action, artifact, and the witnesses around it.
-
-| Tool | Audits | Question it answers |
-|---|---|---|
-| 🪞 [**measure-mirror**](https://github.com/mirror-stack/measure-mirror) | AI evaluation claims | Is the **claim** honest? — preregistration, kill conditions, 28 statistical/gaming probes |
-| 🪪 [**action-mirror**](https://github.com/mirror-stack/action-mirror) | Agent behaviour | Who did what, **provably**? — chain-linked action history + mutual witness |
-| 🔎 [**provenance-mirror**](https://github.com/mirror-stack/provenance-mirror) | Provenance signals | What origin hints are present? — byte markers are **not** authenticated manifests or verified signatures |
-| 👁 [**mirror-witness**](https://github.com/mirror-stack/mirror-witness) | Cross-operator witness board | Who else **witnessed** it? — GitHub-as-witness, CI-verified, no server |
-
-Five conventions + one `verify-all` command join them into a stack:
-**[the Mirror Stack →](https://github.com/mirror-stack/measure-mirror/tree/main/stack)**
-
-### The practice layer
-
-[**yeoul**](https://github.com/mirror-stack/yeoul) sits on top of the mirrors: a file-based harness that
-runs an idea from **deliberation → pre-registration → dev loop**, with integrity gates (prior-art, two-phase
-close, a KILL-defense checklist, a verify-gated dev loop). The mirrors answer *is this honest?*; yeoul is
-*how you run a disciplined loop end to end* — and seals into them as it goes.
-
-## Get started
-
-The four mirrors ship as **one** MCP server:
+Mirror Stack's core tool, **measure-mirror**, makes that answerable from a file. You seal the
+metric, sample size, baseline, pass threshold and a **kill condition** into a hash-chained ledger
+before the experiment; afterwards `mm audit` checks the result against the sealed criteria and
+runs statistical and gaming probes (small samples, metric swaps, weak baselines, multiple
+comparisons, and others). If the result hits the kill condition, the claim is reported as
+falsified by its own preregistered criterion.
 
 ```bash
-pip install git+https://github.com/mirror-stack/mirror-stack-mcp
-```
-```json
-{ "mcpServers": { "mirror-stack": { "command": "mirror-stack-mcp" } } }
+pip install git+https://github.com/mirror-stack/measure-mirror@v0.41.2
+
+# before the run: seal the criteria, including what would falsify the claim
+mm register my_model --metric acc --min-n 200 --baseline 0.5 --pass 0.60 \
+           --new-ledger --kill-threshold 0.55 --kill-direction below
+
+# after the run: audit the result against what was sealed
+mm audit my_model --acc 0.72 --n 500    # ✅ OK
+mm audit my_model --acc 0.52 --n 500    # 🔴 FAIL: kill condition triggered
 ```
 
-Want the practice layer on top? [**yeoul**](https://github.com/mirror-stack/yeoul) adds a `yeoul` MCP
-server that seals into the mirrors as it runs — see its README for the combined one-command setup.
+→ **[measure-mirror](https://github.com/mirror-stack/measure-mirror)** — 28 probes, a
+[catalog of sealed measurement-illusion cases](https://github.com/mirror-stack/measure-mirror/blob/main/catalog/README.md),
+CLI, Python API and an MCP server. Apache-2.0, stdlib-only core.
 
-💬 **[Join the Discussions](https://github.com/orgs/mirror-stack/discussions)** — questions, ideas,
+## Supporting tools
+
+The other tools cover what surrounds a claim. They are smaller and less validated than
+measure-mirror.
+
+| Tool | Records | Question it answers |
+|---|---|---|
+| 🪪 [**action-mirror**](https://github.com/mirror-stack/action-mirror) | Agent actions | Who recorded doing what? — chain-linked action history + mutual witness between ledgers |
+| 🔎 [**provenance-mirror**](https://github.com/mirror-stack/provenance-mirror) | Provenance signals | What origin hints are present? — byte markers are **not** authenticated manifests or verified signatures |
+| 👁 [**mirror-witness**](https://github.com/mirror-stack/mirror-witness) | Cross-operator witness board | Who else **witnessed** a ledger head? — GitHub-as-witness, CI-verified, no server |
+
+Five conventions + one `verify-all` command join them:
+**[the Mirror Stack →](https://github.com/mirror-stack/measure-mirror/tree/main/stack)**.
+All four ship as one MCP server, [mirror-stack-mcp](https://github.com/mirror-stack/mirror-stack-mcp):
+
+```bash
+pip install git+https://github.com/mirror-stack/mirror-stack-mcp@v0.3.0
+```
+
+### A separate product: yeoul
+
+[**yeoul**](https://github.com/mirror-stack/yeoul) is a file-based harness for running
+deliberation → pre-registration → dev loops with integrity gates (prior-art check, two-phase
+close, a KILL-defense checklist, a verify-gated dev loop). Since v0.4.0 it is a **standalone**
+product: it runs without the mirrors, and linking it to Mirror Stack is an explicit opt-in
+(`--with-mirror-stack` in its installer). See its README for setup.
+
+💬 **[Discussions](https://github.com/orgs/mirror-stack/discussions)** — questions, ideas,
 and (especially) **independent reproductions**: the one thing the makers cannot do for themselves.
 
 ## See it work
@@ -62,12 +77,12 @@ human-readable viewer over real ledgers, published as a snapshot (most recent ar
 shows the kill-condition sealed *before* the run, the verdict (pass / kill / retracted / inconclusive), and every
 number **recomputed in your browser from the ledger itself** rather than typed in.
 Tamper with a sealed value in your browser and watch the hash break. It shows the failures and retractions,
-not just the wins — that's what makes it worth reading.
+not just the wins.
 
 Or read a single arc end-to-end: **[an agent that retracted its own experiment before spending a single token](https://github.com/mirror-stack/measure-mirror/blob/main/stack/CASE_STUDY_compute_governor.md)**
 — preregistration → a power check that vetoed its own design → adversarial self-amendments →
 prior-art retraction at zero measurement cost. The chain-sealed ledger is bundled; verify it
-yourself. Nothing in the story asks you to trust the agent. That's the point.
+yourself.
 
 ## Honesty box
 
@@ -77,9 +92,11 @@ an external clock; `HEAD_WITNESS` is not independent reproduction. Provenance hi
 return yellow `PROVENANCE-UNVERIFIED`, not `AUTHENTIC-SIGNED`. Historical sealed
 records are left intact. See the [current gate contract and migration guide](https://github.com/mirror-stack/mirror-stack-mcp/blob/main/README.md#verification-depth-and-gate-migration-0214).
 
-This does **not** prevent dishonesty — an agent can simply not record. The guarantee is
-asymmetric: sealed preregistrations and time-pinned witnesses can't be fabricated retroactively,
-so a *missing* ledger is itself the signal. And these are early tools, witnessed so far by one
-agent family — not yet an independent network. Opening them is how that changes.
+This does **not** prevent dishonesty — an agent can simply not record, and a local ledger's
+timestamps come from a local clock. What the ledger gives is narrower: a preregistration that
+was sealed before a result is linked to it can't be edited afterwards without breaking the
+chain, and once a ledger head is witnessed or externally anchored, rewriting the history
+before it is detectable. So far the witnesses are one agent family run by the makers — not yet an independent
+network. Opening them is how that changes.
 
 <p align="center"><sub>Built while honestly killing our own projects · Apache 2.0</sub></p>
